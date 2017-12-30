@@ -1,0 +1,69 @@
+.chat-room
+  height: 100%
+  .chat-show-msg
+    // @include position(absolute, 51px, 0, 162px, 0)
+    height: calc(100vh - 56px - 56px - 85px)
+    margin: 0
+    overflow-y: scroll
+    background-color: #F2F5F8
+    padding-bottom: 10px
+    &::-webkit-scrollbar
+      width: 5px
+    &::-webkit-scrollbar-thumb
+      background: #666
+    .chat-box-me, .chat-box-other
+      max-width: 80%
+      position: relative
+      padding-top: 12.5px
+    img
+      @include eqsize(42px)
+      border-radius: 50%
+    .chat-bubble
+      display: inline-block
+      padding: 10px
+      border-radius: 3px
+      position: relative
+      &::after
+        @include eqsize(0)
+        content: " "
+        display: block
+        border-top: 8px solid transparent
+        border-bottom: 8px solid transparent
+    .chat-box-me
+      $chat-box-me-color: #94C2ED
+      margin: 5px auto 5px 20%
+      text-align: right
+      .chat-name
+        margin: 4px 60px 4px auto
+      img
+        @include position(absolute, 25px, 5px, null, null)
+      .chat-bubble
+        background-color: $chat-box-me-color
+        margin-right: 60px
+        text-align: left
+        &::after
+          @include position(absolute, 8px, -8px, null, null)
+          border-left: 8px solid $chat-box-me-color
+    .chat-box-other
+      $chat-box-other-color: #86BB71
+      margin: 5px 20% 5px auto
+      .chat-name
+        margin: 4px auto 4px 60px
+      img
+        @include position(absolute, 25px, null, null, 5px)
+      .chat-bubble
+        background-color: $chat-box-other-color
+        margin-left: 60px
+        &::after
+          @include position(absolute, 8px, null, null, -8px)
+          border-right: 8px solid $chat-box-other-color
+  .chat-send-msg
+    background-color: #F2F5F8
+    padding: 5px 5px 5px 20px
+    border-top: 2px solid white
+    height: 85px
+    .send-btn
+      margin-left: 5px
+      margin-bottom: 5px
+.empty-room
+  height: calc(100vh - 56px - 56px)
