@@ -8,24 +8,26 @@ import RoomList from './components/roomlist';
 import Room from './components/room';
 import Footer from './components/footer';
 
+import Login from './components/login';
+
 export default class RouterComponent extends Component {
 
   render() {
     return (
       <Router>
-        <div className="container px-0">
-          <Route render={props =>
+        <div className="container">
+          {/* <Route render={props =>
             <Header route={props} />
-          }/>
+          }/> */}
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Login} />
             <Route exact path="/rooms" component={RoomList} />
             <Route exact path="/room" component={Room} />
             <Route exact path="/room/:id" component={Room} />
           </Switch>
-          <Route render={props =>
+          {/* <Route render={props =>
             <Footer route={props} />
-          }/>
+          }/> */}
         </div>
       </Router>
     )
