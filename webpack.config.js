@@ -18,7 +18,8 @@ module.exports = {
       include: path.resolve(__dirname, 'src'),
       loader: 'babel-loader',
       query: {
-        presets: ['react', 'es2015']
+        presets: ['react', 'es2015'],
+        plugins: ['react-html-attrs', 'transform-decorators-legacy', 'transform-class-properties']
       }
     }, {
       test: /\.sass$/,
@@ -39,7 +40,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      "env": {
+      "ENV": {
         "debug": JSON.parse(process.env.DEBUG),
         "assets": JSON.stringify(ASSET_PATH)
       }

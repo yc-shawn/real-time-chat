@@ -15,16 +15,23 @@ class Home extends Component {
   }
   render(){
     return (
-      <Paper zDepth={2} className="main-content">
+      <Paper zDepth={2} class="main-content">
         <header>
-          <span className="header-action">
-            <i className="fa fa-circle" />
-            <i className="fa fa-circle" />
-            <i className="fa fa-circle" />
+          <span class="header-action">
+            <i class="fa fa-circle" />
+            <i class="fa fa-circle" />
+            <i class="fa fa-circle" />
           </span>
         </header>
-        <main>
-          <img src={`${env.assets}images/ychen-logo-dark.png`} />
+        <main id="login-page">
+          <div class="logo-container p-5 text-center">
+            <img src={`${ENV.assets}images/ychen-logo-dark.png`} />
+          </div>
+          <h3 class="text-center">Real-time Chat <br/>Web Application</h3>
+          <p class="text-center">This is online chat web application, You can login with your name and create or enter a room to start chatting with other people!</p>
+          <section>
+            
+          </section>
         </main>
       </Paper>
     )
