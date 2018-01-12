@@ -3,15 +3,13 @@
   max-height: calc(100vh - 80px)
   background-color: white
   border-radius: 6px
+  padding: 0
   position: relative
   header
     padding: 14px
     border-bottom: 1px solid lightgrey
     .header-action
       font-size: 16px
-      &:hover
-        i.fa:nth-child(1)::before
-          content: '\f057'
       i
         margin-right: 5px
       i.fa:nth-child(1)
@@ -20,6 +18,13 @@
         color: rgb(255, 200, 129)
       i.fa:nth-child(3)
         color: rgb(130, 207, 133)
+      &:hover
+        i.fa:nth-child(1)::before
+          content: '\f057'
+        i.fa:nth-child(2)::before
+          content: '\f056'
+        i.fa:nth-child(3)::before
+          content: '\f055'
     .logo-container img
       height: 25px
   #signin-page
@@ -41,7 +46,7 @@
   footer
     @include position(absolute, null, null, 0, null)
     width: 100%
-    padding: 8px 12px
+    padding: 10px 14px
     background-color: #505d71
     color: white
     border-bottom-left-radius: 6px

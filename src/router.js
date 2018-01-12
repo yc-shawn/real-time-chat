@@ -15,7 +15,7 @@ export default class RouterComponent extends Component {
   render() {
     return (
       <Router>
-        <div className="container">
+        <div>
           {/* <Route render={props =>
             <Header route={props} />
           }/> */}

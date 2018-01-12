@@ -8,19 +8,20 @@ class Home extends Component {
   constructor(){
     super();
     this.state = {
-      name: 'anonymous',
-      login: false,
-      alert: ''
+      zoomed: false
     }
+  }
+  zoom(zoomed){
+    this.setState({zoomed});
   }
   render(){
     return (
-      <Paper zDepth={2} class="main-content">
+      <Paper zDepth={2} class="main-content container">
         <header class="d-flex justify-content-between">
           <span class="header-action">
             <i class="fa fa-circle" />
-            <i class="fa fa-circle" />
-            <i class="fa fa-circle" />
+            <i class="fa fa-circle" onClick={() => this.zoom(false)}/>
+            <i class="fa fa-circle" onClick={() => this.zoom(true)}/>
           </span>
           <a class="logo-container" href={ENV.link.homepage}>
             <img src={`${ENV.assets}images/ychen-logo-dark.png`} />
