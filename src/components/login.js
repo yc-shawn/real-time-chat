@@ -26,7 +26,7 @@ class Home extends Component {
             <img src={`${ENV.assets}images/ychen-logo-dark.png`} />
           </a>
         </header>
-        <main id="login-page" class="p-5">
+        <main id="login-page" class="pt-5">
           <h1 class="text-center app-title">Real-time Chat <br/>Web Application</h1>
           <section class="login-form">
             <TextField
@@ -43,6 +43,13 @@ class Home extends Component {
             <Button raised primary iconClassName="fa fa-sign-in" class="login-btn">Sign in</Button>
           </section>
         </main>
+        <footer>
+          <span>&copy; 2018 yuxiang chen all rights reserved.</span>
+          <div>
+            <span>Policy</span>
+            <span>Terms</span>
+          </div>
+        </footer>
       </Paper>
     )
   }

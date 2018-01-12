@@ -3,6 +3,7 @@
   max-height: calc(100vh - 80px)
   background-color: white
   border-radius: 6px
+  position: relative
   header
     padding: 14px
     border-bottom: 1px solid lightgrey
@@ -30,3 +31,5 @@
       margin: 0 auto
       .login-btn
         width: 100%
+  footer
+    @include position(absolute, null, null, 0, null)
