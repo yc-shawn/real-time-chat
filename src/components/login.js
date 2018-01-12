@@ -16,7 +16,7 @@ class Home extends Component {
   }
   render(){
     return (
-      <Paper zDepth={2} class="main-content container">
+      <Paper zDepth={2} class={`main-content ${this.state.zoomed ? 'fullscreen': 'container'}`}>
         <header class="d-flex justify-content-between">
           <span class="header-action">
             <i class="fa fa-circle" />
