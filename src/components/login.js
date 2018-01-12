@@ -26,29 +26,33 @@ class Home extends Component {
             <img src={`${ENV.assets}images/ychen-logo-dark.png`} />
           </a>
         </header>
-        <main id="login-page" class="pt-5">
+        <main id="signin-page" class="py-5">
           <h1 class="text-center app-title">Real-time Chat <br/>Web Application</h1>
+          <p class="text-center chat-logo"><i class="fa fa-comments" /></p>
           <section class="login-form">
             <TextField
+              id="signin-username"
               label="Username"
               floating={true}
               class="mb-3"
             />
             <TextField
+              id="signin-password"
               label="Password"
               floating={true}
               type="password"
               class="mb-4"
             />
             <Button raised primary iconClassName="fa fa-sign-in" class="login-btn">Sign in</Button>
+            <p>Don't have the account? Sign up <span class="sign-up-link">here</span></p>
           </section>
         </main>
-        <footer>
+        <footer class="d-flex justify-content-between">
           <span>&copy; 2018 yuxiang chen all rights reserved.</span>
-          <div>
-            <span>Policy</span>
+          <span>
+            <span>Policy </span>
             <span>Terms</span>
-          </div>
+          </span>
         </footer>
       </Paper>
     )
