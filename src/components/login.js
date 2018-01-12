@@ -4,7 +4,7 @@ import { Paper, TextField, Button } from 'react-md';
 
 import { userLogin } from '../actions/user.action';
 
-class Home extends Component {
+class Signin extends Component {
   constructor(){
     super();
     this.state = {
@@ -16,18 +16,8 @@ class Home extends Component {
   }
   render(){
     return (
-      <Paper zDepth={2} class={`main-content ${this.state.zoomed ? 'fullscreen': 'container'}`}>
-        <header class="d-flex justify-content-between">
-          <span class="header-action">
-            <i class="fa fa-circle" />
-            <i class="fa fa-circle" onClick={() => this.zoom(false)}/>
-            <i class="fa fa-circle" onClick={() => this.zoom(true)}/>
-          </span>
-          <a class="logo-container" href={ENV.link.homepage}>
-            <img src={`${ENV.assets}images/ychen-logo-dark.png`} />
-          </a>
-        </header>
-        <main id="signin-page" class="py-5">
+      <div id="signin-page">
+        <main class="py-5">
           <h1 class="text-center app-title">Real-time Chat <br/>Web Application</h1>
           <p class="text-center chat-logo"><i class="fa fa-comments" /></p>
           <section class="login-form">
@@ -55,9 +45,9 @@ class Home extends Component {
             <span>Terms</span>
           </span>
         </footer>
-      </Paper>
+      </div>
     )
   }
 }
 
-export default connect(null, { userLogin })(Home);
+export default connect(null, { userLogin })(Signin);
