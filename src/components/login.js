@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { Paper } from 'react-md';
+import { Paper, TextField, Button } from 'react-md';
 
 import { userLogin } from '../actions/user.action';
 
@@ -16,21 +16,31 @@ class Home extends Component {
   render(){
     return (
       <Paper zDepth={2} class="main-content">
-        <header>
+        <header class="d-flex justify-content-between">
           <span class="header-action">
             <i class="fa fa-circle" />
             <i class="fa fa-circle" />
             <i class="fa fa-circle" />
           </span>
-        </header>
-        <main id="login-page">
-          <div class="logo-container p-5 text-center">
+          <a class="logo-container" href={ENV.link.homepage}>
             <img src={`${ENV.assets}images/ychen-logo-dark.png`} />
-          </div>
-          <h3 class="text-center">Real-time Chat <br/>Web Application</h3>
-          <p class="text-center">This is online chat web application, You can login with your name and create or enter a room to start chatting with other people!</p>
-          <section>
-            
+          </a>
+        </header>
+        <main id="login-page" class="p-5">
+          <h1 class="text-center app-title">Real-time Chat <br/>Web Application</h1>
+          <section class="login-form">
+            <TextField
+              label="Username"
+              floating={true}
+              class="mb-3"
+            />
+            <TextField
+              label="Password"
+              floating={true}
+              type="password"
+              class="mb-4"
+            />
+            <Button raised primary iconClassName="fa fa-sign-in" class="login-btn">Sign in</Button>
           </section>
         </main>
       </Paper>

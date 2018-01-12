@@ -42,7 +42,10 @@ module.exports = {
     new webpack.DefinePlugin({
       "ENV": {
         "debug": JSON.parse(process.env.DEBUG),
-        "assets": JSON.stringify(ASSET_PATH)
+        "assets": JSON.stringify(ASSET_PATH),
+        "link": {
+          "homepage": JSON.stringify(process.env.HOME_PAGE)
+        }
       }
     })
   ]
