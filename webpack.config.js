@@ -2,6 +2,7 @@ require('dotenv').config();
 var path = require('path');
 var webpack = require('webpack');
 var argv = require('minimist')(process.argv.slice(2));
+var ASSET_PATH = 'assets/'
 
 module.exports = {
   entry: path.resolve(__dirname, 'src') + '/index.js',
@@ -39,7 +40,8 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       "env": {
-        "debug": JSON.parse(process.env.DEBUG)
+        "debug": JSON.parse(process.env.DEBUG),
+        "assets": JSON.stringify(ASSET_PATH)
       }
     })
   ]

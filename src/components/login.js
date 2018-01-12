@@ -18,11 +18,14 @@ class Home extends Component {
       <Paper zDepth={2} className="main-content">
         <header>
           <span className="header-action">
-            <i className="fa fa-circle"/>
+            <i className="fa fa-circle" />
             <i className="fa fa-circle" />
             <i className="fa fa-circle" />
           </span>
         </header>
+        <main>
+          <img src={`${env.assets}images/ychen-logo-dark.png`} />
+        </main>
       </Paper>
     )
   }
