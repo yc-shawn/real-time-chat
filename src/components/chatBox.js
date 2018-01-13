@@ -21,7 +21,6 @@ class Lobby extends Component {
       })
     } else {
       db.chatList.orderByChild('id').equalTo(roomId).limitToFirst(1).on('value', (res) => {
-        // console.log(_.values(res.val()));
         this.setState({ room: _.values(res.val())[0] });
       });
     }
@@ -48,7 +47,6 @@ class Lobby extends Component {
     }, 333);
   }
   render(){
-    console.log('this.state.room: ', this.state.room)
     return !this.state.room ? null : (
       <div class="chat-box">
         <section class="chat-msg-container">

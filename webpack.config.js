@@ -2,14 +2,14 @@ require('dotenv').config();
 var path = require('path');
 var webpack = require('webpack');
 var argv = require('minimist')(process.argv.slice(2));
-var ASSET_PATH = 'assets/'
+var ASSET_PATH = 'public/assets/'
 
 module.exports = {
   entry: path.resolve(__dirname, 'src') + '/index.js',
   output: {
     path: path.resolve(__dirname, 'public/js'),
     filename: 'app.js',
-    publicPath: '/js/'
+    publicPath: 'public/js/'
     // public path is where you put in to the link: <script src='publicPath/**'></script>
   },
   module: {
@@ -31,7 +31,7 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: path.join(__dirname, 'public'),
+    contentBase: path.join(__dirname, '/'),
     compress: true,
     stats: "errors-only",
     headers: {

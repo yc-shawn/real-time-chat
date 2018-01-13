@@ -20,14 +20,12 @@ class Lobby extends Component {
       this.setState({ lobby: snapshot.val() });
     })
     db.chatList.on('child_added', (snapshot)=>{
-      console.log('chatlist:', snapshot.val());
       let list = snapshot.val();
       if (list != null){
         var chatList = this.state.chatList;
         chatList.push(list)
         this.setState({ chatList });
       };
-      console.log(this.state.chatList);
     });
   }
   render(){
