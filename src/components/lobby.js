@@ -6,6 +6,7 @@ import { Toolbar, Button, MenuButton, Drawer, List, ListItem, Divider, Avatar, F
 
 import ChatListItem from './chatListItem';
 import ChatBox from './chatBox';
+import Welcome from './welcome';
 
 import db from '../utilities/db';
 
@@ -48,14 +49,17 @@ class Lobby extends Component {
             </div>
           </div>
         </div>
-        <ChatBox />
+        <div class="chat-content">
+          {this.props.global.roomId ? <ChatBox /> : <Welcome /> }
+        </div>
+
       </main>
     )
   }
 }
 
 function mapStateToProps(state){
-  return { user: state.user, room: state.room }
+  return { user: state.user, global: state.global }
 }
 
 export default withRouter(connect(mapStateToProps, {})(Lobby));

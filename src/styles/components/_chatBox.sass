@@ -1,3 +1,27 @@
+.chat-box
+  height: 100%
+  background-color: #f5f5f5
+  position: relative
+  .input-box
+    @include position(absolute, null, null, 0, null)
+    background-color: white
+    height: 47px
+    width: 100%
+    display: flex
+    input
+      display: inline-block
+      width: calc(100% - 50px)
+      height: 100%
+      border: none
+      padding-left: 15px
+      &:focus
+        outline: none
+    .send-btn
+      min-width: 50px
+      height: 47px
+      border-radius: 0
+      // padding: 5px
+      font-size: 18px
 .chat-msg-container
   height: calc(100% - 47px)
   overflow-y: scroll
