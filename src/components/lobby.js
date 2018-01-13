@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { Toolbar, Button, MenuButton, Drawer, List, ListItem, Divider, Avatar, FontIcon, Subheader } from 'react-md';
 
 import ChatListItem from './chatListItem';
+import ChatBox from './chatBox';
 
 class Lobby extends Component {
   constructor(props){
@@ -29,6 +30,7 @@ class Lobby extends Component {
               <span class="chat-name">user 1</span>
             </li>
             <ChatListItem />
+            <ChatListItem />
           </ul>
           <div class="user-self d-flex">
             <div class="user-avatar">
@@ -39,15 +41,8 @@ class Lobby extends Component {
             </div>
           </div>
         </div>
-        <div class="chat-box">
-          <header class="chat-header"></header>
-          <section class="input-box">
-            <input type="text" placeholder="Please enter your message"/>
-            <Button flat primary swapTheming class="send-btn m-0">
-              <i class="fa fa-paper-plane" />
-            </Button>
-          </section>
-        </div>
+        <ChatBox />
+
       </main>
     )
   }
