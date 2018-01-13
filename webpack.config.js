@@ -1,13 +1,15 @@
 require('dotenv').config();
 var path = require('path');
 var webpack = require('webpack');
+var argv = require('minimist')(process.argv.slice(2));
+var ASSET_PATH = 'public/assets/'
 
 module.exports = {
   entry: path.resolve(__dirname, 'src') + '/index.js',
   output: {
     path: path.resolve(__dirname, 'public/js'),
     filename: 'app.js',
-    publicPath: '/js/'
+    publicPath: 'public/js/'
     // public path is where you put in to the link: <script src='publicPath/**'></script>
   },
   module: {
@@ -16,7 +18,8 @@ module.exports = {
       include: path.resolve(__dirname, 'src'),
       loader: 'babel-loader',
       query: {
-        presets: ['react', 'es2015']
+        presets: ['react', 'es2015'],
+        plugins: ['react-html-attrs', 'transform-decorators-legacy', 'transform-class-properties']
       }
     }, {
       test: /\.sass$/,
@@ -28,18 +31,22 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: path.join(__dirname, 'public'),
+    contentBase: path.join(__dirname, '/'),
     compress: true,
     stats: "errors-only",
     headers: {
       'Access-Control-Allow-Origin': '*'
     }
   },
-  // plugins: [
-  //   new webpack.DefinePlugin({
-  //     "env": {
-  //       "debug": JSON.parse(process.env.DEBUG)
-  //     }
-  //   })
-  // ]
+  plugins: [
+    new webpack.DefinePlugin({
+      "ENV": {
+        "debug": JSON.parse(process.env.DEBUG),
+        "assets": JSON.stringify(ASSET_PATH),
+        "link": {
+          "homepage": JSON.stringify(process.env.HOME_PAGE)
+        }
+      }
+    })
+  ]
 };
