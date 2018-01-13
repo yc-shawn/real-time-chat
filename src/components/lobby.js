@@ -19,11 +19,9 @@ class Lobby extends Component {
     db.lobby.on('value', (snapshot) => {
       this.setState({ lobby: snapshot.val() });
     })
-    db.chatList.on('child_added', (snapshot)=>{
-      let list = snapshot.val();
-      if (list != null){
-        var chatList = this.state.chatList;
-        chatList.push(list)
+    db.chatList.on('value', (snapshot)=>{
+      if (snapshot.val()){
+        var chatList = _.values(snapshot.val());
         this.setState({ chatList });
       };
     });

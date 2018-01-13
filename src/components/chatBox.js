@@ -46,9 +46,11 @@ class Lobby extends Component {
   scrollToBottom(){
     var target = $('.chat-show-msg li:last-of-type');
     $(()=>{
-      $('html .chat-msg-container').animate({
-        scrollTop: target.offset().top + $('.chat-show-msg')[0].scrollHeight
-      }, 333);
+      if (target && target.offset()){
+        $('html .chat-msg-container').animate({
+          scrollTop: target.offset().top + $('.chat-show-msg')[0].scrollHeight
+        }, 333);
+      }
     })
   }
   render(){
