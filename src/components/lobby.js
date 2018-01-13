@@ -7,30 +7,37 @@ import { Toolbar, Button, MenuButton, Drawer, List, ListItem, Divider, Avatar, F
 import ChatListItem from './chatListItem';
 import ChatBox from './chatBox';
 
+import db from '../utilities/db';
+
 class Lobby extends Component {
   constructor(props){
     super(props);
-    this.state = { memberList: [] }
+    this.state = { chatList: [], lobby: null }
+  }
+  componentDidMount(){
+    db.lobby.on('value', (snapshot) => {
+      this.setState({ lobby: snapshot.val() });
+    })
+    db.chatList.on('child_added', (snapshot)=>{
+      console.log('chatlist:', snapshot.val());
+      let list = snapshot.val();
+      if (list != null){
+        var chatList = this.state.chatList;
+        chatList.push(list)
+        this.setState({ chatList });
+      };
+      console.log(this.state.chatList);
+    });
   }
   render(){
     return (
       <main class="lobby d-flex align-items-stretch">
         <div class="chat-list d-flex flex-column justify-content-between">
           <ul class="list-content">
-            <li>
-              <span class="chat-status">
-                <i class="fa fa-users" />
-              </span>
-              <span class="chat-name">Lobby</span>
-            </li>
-            <li>
-              <span class="chat-status">
-                <i class="fa fa-comment-o" />
-              </span>
-              <span class="chat-name">user 1</span>
-            </li>
-            <ChatListItem />
-            <ChatListItem />
+            <ChatListItem room={this.state.lobby} lobby={true}/>
+            {this.state.chatList.map((room, index) =>
+              <ChatListItem room={room} key={room.id}/>
+            )}
           </ul>
           <div class="user-self d-flex">
             <div class="user-avatar">
@@ -42,7 +49,6 @@ class Lobby extends Component {
           </div>
         </div>
         <ChatBox />
-
       </main>
     )
   }

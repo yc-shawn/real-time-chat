@@ -3,40 +3,43 @@ import { connect } from "react-redux";
 import { withRouter, Link } from 'react-router-dom';
 import _ from 'lodash';
 import { Toolbar, Button, MenuButton, Drawer, List, ListItem, Divider, Avatar, FontIcon, Subheader } from 'react-md';
+import db from '../utilities/db';
 
 class Lobby extends Component {
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {room: null};
+  }
+  componentDidMount(){
+    this.getRoom();
+  }
+  getRoom(){
+    const roomId = this.props.global.roomId;
+    if (roomId === 'lobby'){
+      db.lobby.on('value', (res) => {
+        this.setState({ room: res.val() });
+      })
+    } else {
+      db.chatList.orderByChild('id').equalTo(roomId).limitToFirst(1).on('value', (res) => {
+        this.setState({ room: res.val() });
+      });
+    }
   }
   render(){
-    return (
+    console.log('this.state.room: ', this.props.global.roomId, this.state.room)
+    return !this.state.room ? null : (
       <div class="chat-box">
         <section class="chat-msg-container">
           <ul class="chat-show-msg">
-            <li class="chat-box-other" key={99}>
-              <div class="chat-name">Steve Jobs</div>
-              <img src="http://dsi-vd.github.io/patternlab-vd/images/fpo_avatar.png"/>
-              <div class="chat-bubble">Message from others Message from others Message from others Message from others Message from others Message from others Message from others Message from others Message from others</div>
-            </li>
-            <li class="chat-box-me" key={66}>
-              <div class="chat-name">Shawn Chen</div>
-              <img src="http://dsi-vd.github.io/patternlab-vd/images/fpo_avatar.png"/>
-              <div class="chat-bubble">Message from me</div>
-            </li>
-            {/*
-              this.state.roomObj === null ? null :
-              this.state.roomObj.messages.map((message, i) => {
-                const chatClass = this.props.user.name === message.name ? 'chat-box-me' : 'chat-box-other'
-                return (
-                  <li className={chatClass} key={i}>
-                    <div class="chat-name">{message.name}</div>
-                    <img src="http://dsi-vd.github.io/patternlab-vd/images/fpo_avatar.png"/>
-                    <div class='chat-bubble'>{message.msg}</div>
-                  </li>
-                )
-              })
-            */}
+            {this.state.room.msgs.map((msg, i) => {
+              return (
+                <li className={this.props.user.name === msg.id ? 'chat-box-me' : 'chat-box-other'} key={i}>
+                  <div class="chat-name">{msg.name}</div>
+                  <img src="http://dsi-vd.github.io/patternlab-vd/images/fpo_avatar.png"/>
+                  <div class='chat-bubble'>{msg.msg}</div>
+                </li>
+              )
+            })}
           </ul>
         </section>
         <section class="input-box">
@@ -51,7 +54,7 @@ class Lobby extends Component {
 }
 
 function mapStateToProps(state){
-  return { user: state.user, room: state.room }
+  return { user: state.user, global: state.global }
 }
 
 export default withRouter(connect(mapStateToProps, {})(Lobby));

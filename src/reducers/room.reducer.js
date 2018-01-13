@@ -1,7 +1,7 @@
 import { CHOOSE_ROOM } from '../actions/room.action'
 
 var INITIAL_STATE = {
-  roomId: null
+  roomId: 'lobby'
 };
 
 export default (state = INITIAL_STATE, action) => {
