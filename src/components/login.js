@@ -7,12 +7,6 @@ import { userLogin } from '../actions/user.action';
 class Signin extends Component {
   constructor(){
     super();
-    this.state = {
-      zoomed: false
-    }
-  }
-  zoom(zoomed){
-    this.setState({zoomed});
   }
   render(){
     return (
