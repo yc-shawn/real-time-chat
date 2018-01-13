@@ -9,7 +9,6 @@ class Signin extends Component {
     super();
   }
   signin(){
-    console.log(this.props);
     this.props.history.push('/lobby/')
   }
   render(){

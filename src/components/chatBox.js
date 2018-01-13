@@ -16,11 +16,11 @@ class Lobby extends Component {
   getRoom(id){
     const roomId = id || this.props.global.roomId;
     if (roomId === 'lobby'){
-      db.lobby.once('value', (res) => {
+      db.lobby.on('value', (res) => {
         this.setState({ room: res.val() });
       })
     } else {
-      db.chatList.orderByChild('id').equalTo(roomId).limitToFirst(1).once('value', (res) => {
+      db.chatList.orderByChild('id').equalTo(roomId).limitToFirst(1).on('value', (res) => {
         // console.log(_.values(res.val()));
         this.setState({ room: _.values(res.val())[0] });
       });
@@ -33,35 +33,19 @@ class Lobby extends Component {
   }
   sendMsg(){
     let message = this.refs.message.value;
-    console.log(message);
-    // const refUrl = 'chatapp/chatroom/'+this.state.key+'/messages';
-    // // update message
-    // var newMsgs = this.state.roomObj.messages;
-    // newMsgs.push({
-    //   name: this.props.user.name,
-    //   msg: message,
-    //   time: firebase.database.ServerValue.TIMESTAMP
-    // })
-    // var update = {};
-    // update[refUrl] = newMsgs
-    // firebase.database().ref().update(update);
-    // this.setState({ message: '' });
-    // this.updateInfo(this.state.id, (room, key) => {
-    //   let users = room.users;
-    //   for (var i = 0; i < users.length; i++) {
-    //     if (users[i].name === this.props.user.name) {
-    //       users[i].num += 1;
-    //       break;
-    //     }
-    //   }
-    //   firebase.database().ref(`chatapp/chatroom/${key}/users`).set(users);
-    // })
-    //
-    // //scroll to bottom
-    // var target = $('.chat-show-msg li:last-child');
-    // $('html .chat-show-msg').animate({
-    //   scrollTop: target.offset().top + $('.chat-show-msg')[0].scrollHeight
-    // }, 333);
+    const roomId = this.props.global.roomId;
+    const refUrl = roomId === 'lobby' ? db.lobby : db.chatList;
+    refUrl.child('msgs/').push({
+      name: 'userName',
+      msg: message,
+      time: firebase.database.ServerValue.TIMESTAMP
+    });
+
+    //scroll to bottom
+    var target = $('.chat-show-msg li:last-child');
+    $('html .chat-msg-container').animate({
+      scrollTop: target.offset().top + $('.chat-show-msg')[0].scrollHeight
+    }, 333);
   }
   render(){
     console.log('this.state.room: ', this.state.room)
@@ -69,7 +53,7 @@ class Lobby extends Component {
       <div class="chat-box">
         <section class="chat-msg-container">
           <ul class="chat-show-msg">
-            {this.state.room.msgs.map((msg, i) => {
+            {_.values(this.state.room.msgs).map((msg, i) => {
               return (
                 <li className={this.props.user.name === msg.id ? 'chat-box-me' : 'chat-box-other'} key={i}>
                   <div class="chat-name">{msg.name}</div>
