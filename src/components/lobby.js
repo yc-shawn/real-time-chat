@@ -17,6 +17,12 @@ class Lobby extends Component {
           <ul class="list-content">
             <li>
               <span class="chat-status">
+                <i class="fa fa-users" />
+              </span>
+              <span class="chat-name">Lobby</span>
+            </li>
+            <li>
+              <span class="chat-status">
                 <i class="fa fa-comment-o" />
               </span>
               <span class="chat-name">user 1</span>
@@ -25,6 +31,13 @@ class Lobby extends Component {
           <div class="user-self">Personal info</div>
         </div>
         <div class="chat-box">
+          <header class="chat-header"></header>
+          <section class="input-box">
+            <input type="text" placeholder="Please enter your message"/>
+            <Button flat primary swapTheming class="send-btn">
+              <i class="fa fa-paper-plane" />
+            </Button>
+          </section>
         </div>
       </main>
     )
