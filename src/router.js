@@ -18,16 +18,16 @@ export default class RouterComponent extends Component {
 
   render() {
     return (
-      <Router>
-        <Container>
+      <Container>
+        <Router>
           <Switch>
             <Route exact path="/" component={Login} />
             <Route exact path="/lobby" component={Lobby} />
             <Route exact path="/room" component={Room} />
             <Route exact path="/room/:id" component={Room} />
           </Switch>
-        </Container>
-      </Router>
+        </Router>
+      </Container>
     )
   }
 }

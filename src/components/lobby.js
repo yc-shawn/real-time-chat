@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import _ from 'lodash';
 import { Toolbar, Button, MenuButton, Drawer, List, ListItem, Divider, Avatar, FontIcon, Subheader } from 'react-md';
 
+import ChatListItem from './chatListItem';
 
 class Lobby extends Component {
   constructor(props){
@@ -27,14 +28,22 @@ class Lobby extends Component {
               </span>
               <span class="chat-name">user 1</span>
             </li>
+            <ChatListItem />
           </ul>
-          <div class="user-self">Personal info</div>
+          <div class="user-self d-flex">
+            <div class="user-avatar">
+              <i class="fa fa-user-circle-o" />
+            </div>
+            <div class="user-info d-flex flex-column">
+              <span>Shawn Chen</span>
+            </div>
+          </div>
         </div>
         <div class="chat-box">
           <header class="chat-header"></header>
           <section class="input-box">
             <input type="text" placeholder="Please enter your message"/>
-            <Button flat primary swapTheming class="send-btn">
+            <Button flat primary swapTheming class="send-btn m-0">
               <i class="fa fa-paper-plane" />
             </Button>
           </section>
@@ -48,4 +57,4 @@ function mapStateToProps(state){
   return { user: state.user, room: state.room }
 }
 
-export default connect(mapStateToProps, {})(Lobby);
+export default withRouter(connect(mapStateToProps, {})(Lobby));

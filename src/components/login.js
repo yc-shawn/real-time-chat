@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Paper, TextField, Button } from 'react-md';
-
+import { withRouter } from 'react-router-dom'
 import { userLogin } from '../actions/user.action';
 
 class Signin extends Component {
   constructor(){
     super();
+  }
+  signin(){
+    console.log(this.props);
+    this.props.history.push('/lobby/')
   }
   render(){
     return (
@@ -28,7 +32,7 @@ class Signin extends Component {
               type="password"
               class="mb-4"
             />
-            <Button raised primary iconClassName="fa fa-sign-in" class="login-btn">Sign in</Button>
+            <Button raised primary iconClassName="fa fa-sign-in" class="login-btn" onClick={() => this.signin()}>Sign in</Button>
             <p>Don't have the account? Sign up <span class="sign-up-link">here</span></p>
           </section>
         </main>
@@ -44,4 +48,4 @@ class Signin extends Component {
   }
 }
 
-export default connect(null, { userLogin })(Signin);
+export default withRouter(connect(null, { userLogin })(Signin));
