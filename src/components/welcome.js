@@ -10,6 +10,24 @@ class Welcome extends Component {
     super(props);
     this.state = {room: null};
   }
+  crateRoom(){
+    let userName = 'user name' || this.state.name;
+    let roomName = 'new room' || this.refs.roomName.value;
+    db.chatList.push({
+      name: roomName,
+      id: new Date().getTime().toString(),
+      num: 1,
+      msgs:[{
+        name: userName,
+        msg: `I create the room: ${roomName}. Let\'s chat!'`,
+        time: firebase.database.ServerValue.TIMESTAMP
+      }],
+      users:[{
+        name: userName,
+        num: 1
+      }]
+    });
+  }
   render(){
     return (
       <div class="welcome">
@@ -18,7 +36,7 @@ class Welcome extends Component {
         <p class="text-center">Enter the room on the left side</p>
         <h4 class="text-center">OR</h4>
         <p class="text-center">
-          <Button flat primary iconClassName="fa fa-plus">Create a new room</Button>
+          <Button flat primary iconClassName="fa fa-plus" onClick={()=>this.crateRoom()}>Create a new room</Button>
         </p>
       </div>
     )

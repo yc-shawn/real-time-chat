@@ -21,7 +21,8 @@ class Lobby extends Component {
       })
     } else {
       db.chatList.orderByChild('id').equalTo(roomId).limitToFirst(1).once('value', (res) => {
-        this.setState({ room: res.val()[0] });
+        // console.log(_.values(res.val()));
+        this.setState({ room: _.values(res.val())[0] });
       });
     }
   }
