@@ -32,7 +32,7 @@ class Signin extends Component {
               class="mb-4"
             />
             <Button raised primary iconClassName="fa fa-sign-in" class="login-btn" onClick={() => this.signin()}>Sign in</Button>
-            <p>Don't have the account? Sign up <span class="sign-up-link">here</span></p>
+            <p class="mt-2">Don't have the account? Sign up <span class="sign-up-link">here</span></p>
           </section>
         </main>
         <footer class="d-flex justify-content-between">

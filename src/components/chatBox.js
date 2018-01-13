@@ -18,10 +18,12 @@ class Lobby extends Component {
     if (roomId === 'lobby'){
       db.lobby.on('value', (res) => {
         this.setState({ room: res.val() });
+        this.scrollToBottom();
       })
     } else {
       db.chatList.orderByChild('id').equalTo(roomId).limitToFirst(1).on('value', (res) => {
         this.setState({ room: _.values(res.val())[0] });
+        this.scrollToBottom();
       });
     }
   }
@@ -39,12 +41,15 @@ class Lobby extends Component {
       msg: message,
       time: firebase.database.ServerValue.TIMESTAMP
     });
-
-    //scroll to bottom
-    var target = $('.chat-show-msg li:last-child');
-    $('html .chat-msg-container').animate({
-      scrollTop: target.offset().top + $('.chat-show-msg')[0].scrollHeight
-    }, 333);
+    this.scrollToBottom();
+  }
+  scrollToBottom(){
+    var target = $('.chat-show-msg li:last-of-type');
+    $(()=>{
+      $('html .chat-msg-container').animate({
+        scrollTop: target.offset().top + $('.chat-show-msg')[0].scrollHeight
+      }, 333);
+    })
   }
   render(){
     return !this.state.room ? null : (
