@@ -19,7 +19,14 @@ class Signup extends Component {
         if (_.values(res.val()).length > 0){
           alert('your username was been used')
         } else {
-          db.user.push({id: randomID(10, 'aA0'), username, password, firstname, lastname}, () => {
+          db.user.push({
+            id: randomID(10, 'aA0'),
+            name: `${firstname} ${lastname}`,
+            username,
+            password,
+            firstname,
+            lastname
+          }, () => {
             this.props.showSignup(false);
           });
         }

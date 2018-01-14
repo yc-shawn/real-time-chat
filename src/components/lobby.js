@@ -22,10 +22,12 @@ class Lobby extends Component {
       db.lobby.on('value', (snapshot) => {
         this.setState({ lobby: snapshot.val() });
       })
-      db.chatList.on('value', (snapshot)=>{
+      db.chatList.on('value', (snapshot) => {
         if (snapshot.val()){
           var chatList = _.values(snapshot.val());
           this.setState({ chatList });
+        } else {
+          this.setState({ chatList: [] });
         };
       });
     }
@@ -37,7 +39,7 @@ class Lobby extends Component {
         <div class="chat-list d-flex flex-column justify-content-between">
           <ul class="list-content">
             <ChatListItem room={this.state.lobby} lobby={true}/>
-            {this.state.chatList.map((room, index) =>
+            {this.state.chatList && this.state.chatList.map((room, index) =>
               <ChatListItem room={room} key={room.id}/>
             )}
           </ul>

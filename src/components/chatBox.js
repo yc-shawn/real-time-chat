@@ -8,7 +8,7 @@ import db from '../utilities/db';
 class Lobby extends Component {
   constructor(props){
     super(props);
-    this.state = {room: null};
+    this.state = {room: null, key: null};
   }
   componentDidMount(){
     this.getRoom();
@@ -22,7 +22,7 @@ class Lobby extends Component {
       })
     } else {
       db.chatList.orderByChild('id').equalTo(roomId).limitToFirst(1).on('value', (res) => {
-        this.setState({ room: _.values(res.val())[0] });
+        this.setState({ room: _.values(res.val())[0], key: _.keys(res.val())[0] });
         this.scrollToBottom();
       });
     }
@@ -35,23 +35,29 @@ class Lobby extends Component {
   sendMsg(){
     let message = this.refs.message.value;
     const roomId = this.props.global.roomId;
-    const refUrl = roomId === 'lobby' ? db.lobby : db.chatList;
+    const refUrl = roomId === 'lobby' ? db.lobby : db.chatList.child(this.state.key);
     refUrl.child('msgs/').push({
-      name: 'userName',
+      userId: this.props.user.id,
+      name: this.props.user.name,
       msg: message,
       time: firebase.database.ServerValue.TIMESTAMP
+    }, () => {
+      this.refs.message.value = '';
     });
     this.scrollToBottom();
   }
   scrollToBottom(){
     var target = $('.chat-show-msg li:last-of-type');
-    $(()=>{
+    $(() => {
       if (target && target.offset()){
         $('html .chat-msg-container').animate({
           scrollTop: target.offset().top + $('.chat-show-msg')[0].scrollHeight
         }, 333);
       }
     })
+  }
+  onKeyDown(e){
+    if (e.keyCode === 13) this.sendMsg();
   }
   render(){
     return !this.state.room ? null : (
@@ -60,8 +66,8 @@ class Lobby extends Component {
           <ul class="chat-show-msg">
             {_.values(this.state.room.msgs).map((msg, i) => {
               return (
-                <li className={this.props.user.name === msg.id ? 'chat-box-me' : 'chat-box-other'} key={i}>
-                  <div class="chat-name">{msg.name}</div>
+                <li className={this.props.user.id === msg.userId ? 'chat-box-me' : 'chat-box-other'} key={i}>
+                  <div class="chat-name text-capitalize">{msg.name}</div>
                   <img src="http://dsi-vd.github.io/patternlab-vd/images/fpo_avatar.png"/>
                   <div class='chat-bubble'>{msg.msg}</div>
                 </li>
@@ -70,7 +76,7 @@ class Lobby extends Component {
           </ul>
         </section>
         <section class="input-box">
-          <input type="text" ref="message" placeholder="Please enter your message"/>
+          <input type="text" ref="message" placeholder="Please enter your message" onKeyDown={(e)=>this.onKeyDown(e)}/>
           <Button flat primary swapTheming class="send-btn m-0" onClick={()=>this.sendMsg()}>
             <i class="fa fa-paper-plane" />
           </Button>
