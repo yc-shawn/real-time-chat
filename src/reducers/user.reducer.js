@@ -1,13 +1,11 @@
-import { USER_LOGIN } from '../actions/user.action'
+import { USER_SIGNIN } from '../actions/user.action'
 
-var INITIAL_STATE = {
-  name: null
-};
+var INITIAL_STATE = {};
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case USER_LOGIN:
-      return { name: action.payload }
+    case USER_SIGNIN:
+      return action.payload;
     default:
       return state;
   }

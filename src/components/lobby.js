@@ -16,17 +16,22 @@ class Lobby extends Component {
     this.state = { chatList: [], lobby: null }
   }
   componentDidMount(){
-    db.lobby.on('value', (snapshot) => {
-      this.setState({ lobby: snapshot.val() });
-    })
-    db.chatList.on('value', (snapshot)=>{
-      if (snapshot.val()){
-        var chatList = _.values(snapshot.val());
-        this.setState({ chatList });
-      };
-    });
+    if (_.isEmpty(this.props.user)){
+      this.props.history.push('/signin')
+    } else {
+      db.lobby.on('value', (snapshot) => {
+        this.setState({ lobby: snapshot.val() });
+      })
+      db.chatList.on('value', (snapshot)=>{
+        if (snapshot.val()){
+          var chatList = _.values(snapshot.val());
+          this.setState({ chatList });
+        };
+      });
+    }
   }
   render(){
+    var { user } = this.props;
     return (
       <main class="lobby d-flex align-items-stretch">
         <div class="chat-list d-flex flex-column justify-content-between">
@@ -41,7 +46,7 @@ class Lobby extends Component {
               <i class="fa fa-user-circle-o" />
             </div>
             <div class="user-info d-flex flex-column">
-              <span>Shawn Chen</span>
+              <span class="text-capitalize">{`${user.firstname} ${user.lastname}`}</span>
             </div>
           </div>
         </div>
