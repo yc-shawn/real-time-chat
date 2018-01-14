@@ -8,18 +8,19 @@ import db from '../utilities/db';
 class Welcome extends Component {
   constructor(props){
     super(props);
-    this.state = { room: null, createVisible:false };
+    this.state = { roomName: 'new room', createVisible:false };
   }
   crateRoom(){
-    let userName = 'user name' || this.state.name;
-    let roomName = 'new room' || this.refs.roomName.value;
+    let userName = this.props.user.name;
+    let roomName = this.state.roomName;
     db.chatList.push({
       name: roomName,
       id: new Date().getTime().toString(),
       num: 1,
       msgs:[{
+        userId: this.props.user.id,
         name: userName,
-        msg: `I create the room: ${roomName}. Let\'s chat!'`,
+        msg: `I create the room: ${roomName}. Let\'s chat!`,
         time: firebase.database.ServerValue.TIMESTAMP
       }],
       users:[{
@@ -53,7 +54,8 @@ class Welcome extends Component {
           <TextField required
             id="create-new-room-name"
             label="Room Name"
-            onChange={(e)=>this.editText('roomname', e)}
+            value={this.state.roomName}
+            onChange={(e) => this.setState({['roomName']:e})}
             placeholder="Enter room name"
           />
         </DialogContainer>
