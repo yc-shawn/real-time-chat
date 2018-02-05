@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Paper } from 'react-md';
 
+import { chooseRoom } from '../actions/room.action';
+
 class Container extends Component {
   constructor(){
     super();
@@ -15,7 +17,7 @@ class Container extends Component {
       <Paper zDepth={2} class={`main-content ${this.state.zoomed ? 'fullscreen': 'container'}`}>
         <header class="main-header d-flex justify-content-between">
           <span class="header-action">
-            <i class="fa fa-circle" />
+            <i class="fa fa-circle" onClick={() => this.props.chooseRoom(null)}/>
             <i class="fa fa-circle" onClick={() => this.zoom(false)}/>
             <i class="fa fa-circle" onClick={() => this.zoom(true)}/>
           </span>
@@ -29,4 +31,4 @@ class Container extends Component {
   }
 }
 
-export default connect(null, {})(Container);
+export default connect(null, {chooseRoom})(Container);

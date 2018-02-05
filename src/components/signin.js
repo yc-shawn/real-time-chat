@@ -24,6 +24,9 @@ class Signin extends Component {
       }, 33);
     });
   }
+  onKeyDown(e){
+    if (e.keyCode === 13) this.signin();
+  }
 
   // Render The Component Signin
   render = () =>
@@ -37,6 +40,7 @@ class Signin extends Component {
           label="Username"
           floating={true}
           onChange={(e)=>this.setState({['username']:e})}
+          onKeyDown={(e)=>this.onKeyDown(e)}
           class="mb-3"
         />
         <TextField required
@@ -45,6 +49,7 @@ class Signin extends Component {
           floating={true}
           type="password"
           onChange={(e)=>this.setState({['password']:e})}
+          onKeyDown={(e)=>this.onKeyDown(e)}
           class="mb-4"
         />
         <Button raised primary iconClassName="fa fa-sign-in" class="login-btn" onClick={()=>this.signin(true)}>Sign in</Button>

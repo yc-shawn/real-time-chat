@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { withRouter, Link } from 'react-router-dom';
 import _ from 'lodash';
+import moment from 'moment';
 import { Toolbar, Button, MenuButton, Drawer, List, ListItem, Divider, Avatar, FontIcon, Subheader } from 'react-md';
 import db from '../utilities/db';
 
@@ -64,15 +65,14 @@ class Lobby extends Component {
       <div class="chat-box">
         <section class="chat-msg-container">
           <ul class="chat-show-msg">
-            {_.values(this.state.room.msgs).map((msg, i) => {
-              return (
-                <li className={this.props.user.id === msg.userId ? 'chat-box-me' : 'chat-box-other'} key={i}>
-                  <div class="chat-name text-capitalize">{msg.name}</div>
-                  <img src="http://dsi-vd.github.io/patternlab-vd/images/fpo_avatar.png"/>
-                  <div class='chat-bubble'>{msg.msg}</div>
-                </li>
-              )
-            })}
+            {_.values(this.state.room.msgs).map((msg, i) =>
+              <li class={this.props.user.id === msg.userId ? 'chat-box-me' : 'chat-box-other'} key={i}>
+                <div class="chat-name text-capitalize">{msg.name}</div>
+                <img src="http://dsi-vd.github.io/patternlab-vd/images/fpo_avatar.png"/>
+                <span class="chat-time">{moment(msg.time).format('hh:mm A')}</span>
+                <div class='chat-bubble'>{msg.msg}</div>
+              </li>
+            )}
           </ul>
         </section>
         <section class="input-box">
