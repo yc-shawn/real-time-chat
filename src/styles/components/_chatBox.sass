@@ -25,6 +25,7 @@
 .chat-msg-container
   height: calc(100% - 47px)
   overflow-y: scroll
+  background-color: #F2F5F8
   .chat-show-msg
     // @include position(absolute, 51px, 0, 162px, 0)
     margin: 0
@@ -44,7 +45,6 @@
       @include eqsize(42px)
       border-radius: 50%
     .chat-time
-      @include position(absolute, null, 5px, -2px, null)
       font-size: 10px
     .chat-bubble
       display: inline-block
@@ -65,6 +65,8 @@
         margin: 4px 60px 4px auto
       img
         @include position(absolute, 25px, 5px, null, null)
+      .chat-time
+        @include position(absolute, null, 5px, -2px, null)
       .chat-bubble
         background-color: $chat-box-me-color
         margin-right: 60px
@@ -79,6 +81,8 @@
         margin: 4px auto 4px 60px
       img
         @include position(absolute, 25px, null, null, 5px)
+      .chat-time
+        @include position(absolute, null, null, -2px, 5px)
       .chat-bubble
         background-color: $chat-box-other-color
         margin-left: 60px

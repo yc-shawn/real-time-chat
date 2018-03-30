@@ -4,7 +4,7 @@ import { Paper, TextField, Button, DialogContainer } from 'react-md';
 import { withRouter } from 'react-router-dom'
 import randomID from 'random-id';
 
-import { userLogin } from '../actions/user.action';
+import { userSignin } from '../actions/user.action';
 import db from '../utilities/db';
 
 class Signup extends Component {
@@ -12,7 +12,7 @@ class Signup extends Component {
     super();
     this.state = { signupVisible: false };
   }
-  signin(){
+  signup(){
     var { username, password, firstname, lastname } = this.state;
     if (username && password && firstname && lastname){
       db.user.orderByChild('username').equalTo(username).limitToFirst(1).once('value', (res) => {
@@ -28,6 +28,11 @@ class Signup extends Component {
             lastname
           }, () => {
             this.props.showSignup(false);
+            this.props.userSignin(username, password, () => {
+              setTimeout(() => {
+                this.props.history.push('/');
+              }, 33);
+            });
           });
         }
       });
@@ -41,7 +46,7 @@ class Signup extends Component {
     id="signup-dialog"
     actions={[
       { secondary: true, children: 'Cancel', onClick: ()=>this.props.showSignup(false) },
-      { primary: true, children: 'Confirm', onClick: ()=>this.signin() }
+      { primary: true, children: 'Confirm', onClick: ()=>this.signup() }
     ]}
     visible={this.props.visible}
     onHide={()=>this.props.showSignup(false)}
@@ -74,4 +79,4 @@ class Signup extends Component {
   </DialogContainer>
 }
 
-export default withRouter(connect(null, { userLogin })(Signup));
+export default withRouter(connect(null, { userSignin })(Signup));
