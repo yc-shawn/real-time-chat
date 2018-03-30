@@ -58,3 +58,11 @@
   @media screen and (max-width: 414px)
     margin: 50px 5px 10px 5px
     font-size: 14px
+
+@mixin hideScrollbar()
+  &::-webkit-scrollbar
+    @include eqsize(0)
+  &::-webkit-scrollbar-track
+    @include eqsize(0)
+  &::-webkit-scrollbar-thumb
+    @include eqsize(0)
