@@ -5,6 +5,7 @@
     background-color: #505d71
     color: white
     .list-content
+      @include hideScrollbar()
       overflow-y: scroll
     .user-self
       height: 50px
@@ -19,6 +20,5 @@
   .chat-content
     width: 75%
     height: 100%
-    @include hideScrollbar()
     .welcome
       padding: 50px 20px
